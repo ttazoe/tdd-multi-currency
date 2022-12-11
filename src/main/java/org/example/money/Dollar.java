@@ -11,4 +11,12 @@ public class Dollar {
         return new Dollar(this.amount * multiplier);
     }
 
+    public boolean equals(Object object){
+        if (object instanceof Dollar) {
+            Dollar dollar = (Dollar) object;
+            return this.amount == dollar.amount;
+        }
+        return false;
+    }
+
 }
