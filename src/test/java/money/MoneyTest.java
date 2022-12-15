@@ -3,6 +3,7 @@ package money;
 import org.example.money.Bank;
 import org.example.money.Expression;
 import org.example.money.Money;
+import org.example.money.Sum;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,5 +36,29 @@ public class MoneyTest {
         Bank bank = new Bank();
         Money reduced = bank.reduce(sum, "USD");
         assertEquals(Money.dollar(10), reduced);
+    }
+
+    @Test
+    public void testPlusReturnsSum() {
+        Money five = Money.dollar(5);
+        Expression result = five.plus(five);
+        Sum sum = (Sum) result;
+        Bank bank = new Bank();
+        assertEquals(five, sum.augend);
+        assertEquals(five, sum.addend);
+    }
+
+    @Test
+    public void testReduceSum(){
+        Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
+        Bank bank = new Bank();
+        Money result = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(7), result);
+    }
+
+    public void testReduceMoney(){
+        Bank bank = new Bank();
+        Money result = bank.reduce(Money.dollar(1), "USD");
+        assertEquals(Money.dollar(1), result);
     }
 }
